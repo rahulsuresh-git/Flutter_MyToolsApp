@@ -19,12 +19,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   firebase_core: ^0.2.5
   firebase_analytics: ^1.0.4
-  cloud_firestore: 0.8.2+3
-  firebase_auth: 
-  google_sign_in: 
+  cloud_firestore: ^0.7.4
+  flutter_just_toast: ^1.0.1
+  firebase_auth: ^0.6.2+1
+  google_sign_in: ^3.2.1
   rxdart: 0.20.0
 
   # The following adds the Cupertino Icons font to your application.
@@ -34,7 +34,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+ 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
