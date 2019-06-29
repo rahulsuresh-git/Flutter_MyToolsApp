@@ -3,6 +3,7 @@ import 'login.dart';
 import 'root.dart';
 import 'home.dart';
 import 'auth.dart';
+import 'timetable.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,6 +32,7 @@ class _MyAppState extends State<MyApp> {
         '/login': (BuildContext context) => new Login(),
         '/home': (BuildContext context) => new Home(),
         '/root': (BuildContext context) => new MyApp(),
+        '/timetable':(BuildContext context)=> new Timetable(),
       },
     );
   }

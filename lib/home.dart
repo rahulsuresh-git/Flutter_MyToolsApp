@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
               ))),
       appBar: AppBar(
         backgroundColor: Color(0xff2b2b2b),
-        title: Text("Amazon TabTalk v1.0"),
+        title: Text("SRM MyTools v5.0"),
       ),
       body: Center(child: Text("hi")),
     );
