@@ -6,7 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'auth.dart';
 import 'package:flutter_just_toast/flutter_just_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mytools_flutter/form.dart';
 
 class Home extends StatefulWidget {
   Home({this.auth, this.onSignOut});
@@ -26,44 +25,7 @@ class _HomeState extends State<Home> {
   String uid;
   String _photoUrl = "";
   var refreshKey = GlobalKey<RefreshIndicatorState>();
-  void _showDialog() {
-    // flutter defined function
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Alert Dialog title"),
-          content: Form(          key: this._formKey,
-
-              child: new ListView(children: <Widget>[
-            new TextFormField(
-              keyboardType: TextInputType
-                  .emailAddress, // Use email input type for emails.
-              decoration: new InputDecoration(
-                  hintText: 'you@example.com', labelText: 'E-mail Address'),
-            ),
-            new TextFormField(
-              obscureText: true, // Use secure text for passwords.
-              decoration: new InputDecoration(
-                  hintText: 'Password', labelText: 'Enter your password'),
-            )
-          ])),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
+  
   @override
   void initState() {
     super.initState();
@@ -101,7 +63,7 @@ class _HomeState extends State<Home> {
                     fontSize: 25)),
           ]),
           Padding(
-            padding: EdgeInsets.only(top: 25),
+            padding: EdgeInsets.only(top: 30),
           ),
           new Container(
             width: 100.0,
@@ -132,7 +94,11 @@ class _HomeState extends State<Home> {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: _showDialog,
+              onTap: (){
+                                        Navigator.pushNamed(context, '/profile');
+
+              },
+
               child: Container(
                 height: 100,
                 width: MediaQuery.of(context).size.width,
@@ -144,6 +110,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+          ),    Padding(
+            padding: EdgeInsets.only(top: 5),
           ),
           Card(
             color: Colors.amber,
@@ -164,6 +132,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+          ),Padding(
+            padding: EdgeInsets.only(top: 5),
           ),
           Card(
             color: Colors.red[300],
