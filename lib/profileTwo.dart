@@ -61,7 +61,21 @@ class _ProfileTwoState extends State<ProfileTwo> {
     FocusScope.of(context).requestFocus(new FocusNode());
     _showDialog();
 
-    print("hi");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseAuth.currentUser().then((userId) async {
+      var document =
+          Firestore.instance.collection("users").document(userId.uid).get();
+      await document.then((doc) {
+        setState(() {
+          dropdownBatch = doc['batch'];
+          dropdownYear = doc['year'];
+        });
+      });
+    });
   }
 
   @override
