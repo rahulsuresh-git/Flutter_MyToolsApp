@@ -5,6 +5,7 @@ import 'home.dart';
 import 'auth.dart';
 import 'timetable.dart';
 import 'profile.dart';
+import 'profileTwo.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -35,7 +36,8 @@ class _MyAppState extends State<MyApp> {
         '/root': (BuildContext context) => new MyApp(),
         '/timetable':(BuildContext context)=> new Timetable(),
         '/profile':(BuildContext context)=> new Profile(),
-        
+                '/profileTwo':(BuildContext context)=> new ProfileTwo(),
+
       },
     );
   }

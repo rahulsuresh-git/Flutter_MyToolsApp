@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,20 +17,36 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-    final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   @override
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   FirebaseUser userTemp;
   String _userName = "";
   String uid;
+
   String _photoUrl = "";
+  bool _profile = false;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
-  
+
   @override
   void initState() {
     super.initState();
-    _firebaseAuth.currentUser().then((userId) {
+    _firebaseAuth.currentUser().then((userId) async {
+      var document =
+          Firestore.instance.collection("users").document(userId.uid).get();
+      await document.then((doc) {
+        print(doc['profile']);
+        if (doc['profile'] == null) {
+          setState(() {
+            _profile = false;
+          });
+        } else if (doc['profile'] == true) {
+          setState(() {
+            _profile = true;
+          });
+        }
+      });
       var temp = userId.displayName.split(' ');
       setState(() {
         _userName = temp[0];
@@ -40,6 +57,7 @@ class _HomeState extends State<Home> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: Text("SRM MyTools v5.0"),
@@ -81,11 +99,9 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+          _profile ? Edit() : Text(""),
           Padding(
-            padding: EdgeInsets.only(top: 30),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: 50),
           ),
           Card(
             color: Colors.green[400],
@@ -94,11 +110,13 @@ class _HomeState extends State<Home> {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: (){
-                                        Navigator.pushNamed(context, '/profile');
-
+              onTap: () {
+                if (!_profile || _profile == null)
+                  Navigator.pushNamed(context, '/profile');
+                else {
+                  print("push to tt");
+                }
               },
-
               child: Container(
                 height: 100,
                 width: MediaQuery.of(context).size.width,
@@ -110,7 +128,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-          ),    Padding(
+          ),
+          Padding(
             padding: EdgeInsets.only(top: 5),
           ),
           Card(
@@ -132,7 +151,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-          ),Padding(
+          ),
+          Padding(
             padding: EdgeInsets.only(top: 5),
           ),
           Card(
@@ -176,6 +196,41 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
+    );
+  }
+}
+
+class Edit extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+        ),
+        Card(
+          color: Colors.red,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(24),
+            onTap: () {
+              Navigator.pushNamed(context, '/profileTwo');
+            },
+            child: Container(
+              height: 35,
+              width: 100,
+              child: Center(
+                child: Text(
+                  'Edit Batch',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
