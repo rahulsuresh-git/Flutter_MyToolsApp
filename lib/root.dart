@@ -23,9 +23,10 @@ class _RootPageState extends State<RootPage> {
   void initState() {
 
     widget.auth.currentUser().then((userId) {
+      widget.auth.updateUserData(userId);
       setState(() {
         authStatus =
-            userId != null ? AuthStatus.signedIn : AuthStatus.notSignedIn;
+            userId.uid != null ? AuthStatus.signedIn : AuthStatus.notSignedIn;
       });
     });
   }
@@ -41,7 +42,6 @@ class _RootPageState extends State<RootPage> {
     switch (authStatus) {
       case AuthStatus.notSignedIn:
         return new Login(
-          title: 'Amazon App',
           auth: widget.auth,
           onSignIn: () => _updateAuthStatus(AuthStatus.signedIn),
         );

@@ -23,8 +23,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+       theme:  ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
       ),
       home: RootPage(auth: new Auth()),
       routes: <String, WidgetBuilder>{

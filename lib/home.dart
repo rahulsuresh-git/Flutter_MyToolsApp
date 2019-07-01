@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'auth.dart';
 import 'package:flutter_just_toast/flutter_just_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,71 +18,154 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
+  FirebaseUser userTemp;
+  String _userName = "";
   String uid;
-
+  String _photoUrl = "";
   var refreshKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     super.initState();
+    _firebaseAuth.currentUser().then((userId) {
+      var temp = userId.displayName.split(' ');
+      setState(() {
+        _userName = temp[0];
+        _photoUrl = userId.photoUrl;
+      });
+    });
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-          color: Color(0xffffffff),
-          elevation: 30,
-          child: Container(
-              height: 60,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  FlatButton(
-                    onPressed: () => {Navigator.of(context).pushNamed('/post')},
-                    padding: EdgeInsets.all(10.0),
-                    child: Column(
-                      // Replace with a Row for horizontal icon + text
-                      children: <Widget>[
-                        Icon(Icons.add),
-                        Text("Post"),
-                      ],
-                    ),
-                  ),
-                  FlatButton(
-                    onPressed: () async {
-                      try {
-                        await _firebaseAuth.signOut();
-                        print("Signed out");
-                        if (Navigator.pop(context) == null)
-                          Navigator.pushNamed(context, '/root');
-                        Navigator.pushReplacementNamed(context, '/root');
-                      } catch (e) {
-                        var error = e.message;
-                        Toast.show(
-                            message: "Error : $error",
-                            duration: Delay.LONG,
-                            textColor: Colors.black);
-                      }
-                    },
-                    padding: EdgeInsets.all(10.0),
-                    child: Column(
-                      // Replace with a Row for horizontal icon + text
-                      children: <Widget>[
-                        Icon(Icons.exit_to_app),
-                        Text("Logout")
-                      ],
-                    ),
-                  ),
-                ],
-              ))),
       appBar: AppBar(
-        backgroundColor: Color(0xff2b2b2b),
+        backgroundColor: Colors.blue,
         title: Text("SRM MyTools v5.0"),
       ),
-      body: Center(child: Text("hi")),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 50),
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            Text("Hey ",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w100,
+                    fontSize: 25)),
+            Text(_userName + "!",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 25)),
+          ]),
+          Padding(
+            padding: EdgeInsets.only(top: 25),
+          ),
+          new Container(
+            width: 100.0,
+            height: 100.0,
+            decoration: new BoxDecoration(
+              color: const Color(0xff7c94b6),
+              image: new DecorationImage(
+                image: new NetworkImage(_photoUrl),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: new BorderRadius.all(new Radius.circular(50.0)),
+              border: new Border.all(
+                color: Colors.white,
+                width: 4.0,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 30),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+          ),
+          Card(
+            color: Colors.green[400],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(30),
+              onTap: () {},
+              child: Container(
+                height: 100,
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: Text(
+                    'Create Timetable',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Card(
+            color: Colors.amber,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(30),
+              onTap: () {},
+              child: Container(
+                height: 100,
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: Text(
+                    'View Timetable',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Card(
+            color: Colors.red[300],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Stack(
+              children: <Widget>[
+                InkWell(
+                  borderRadius: BorderRadius.circular(30),
+                  onTap: () async {
+                    try {
+                      await _firebaseAuth.signOut();
+                      print("Signed out");
+                      if (Navigator.pop(context) == null)
+                        Navigator.pushNamed(context, '/root');
+                      Navigator.pushReplacementNamed(context, '/root');
+                    } catch (e) {
+                      var error = e.message;
+                      Toast.show(
+                          message: "Error : $error",
+                          duration: Delay.LONG,
+                          textColor: Colors.black);
+                    }
+                  },
+                  child: Container(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
-  

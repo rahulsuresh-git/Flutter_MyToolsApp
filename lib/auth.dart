@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class BaseAuth {
-  Future<String> currentUser();
+  Future<FirebaseUser> currentUser();
   Future<String> signIn(String email, String password);
     Future<String> googleSignIn();
   void updateUserData(FirebaseUser user);
@@ -31,9 +31,9 @@ class Auth implements BaseAuth {
     return user.uid;
   }
 
-  Future<String> currentUser() async {
+  Future<FirebaseUser> currentUser() async {
     FirebaseUser user = await _firebaseAuth.currentUser();
-    return user != null ? user.uid : null;
+    return user != null ? user : null;
   }
 
   Future<String> googleSignIn() async {
@@ -41,12 +41,13 @@ class Auth implements BaseAuth {
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     FirebaseUser user = await _firebaseAuth.signInWithGoogle(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+        updateUserData(user);
     return user.uid;
   }
 
   void updateUserData(FirebaseUser user) async {
     DocumentReference ref = _db.collection("users").document(user.uid);
-    return ref.setData({
+   ref.setData({
       'uid': user.uid,
       'email': user.email,
       'photoURL': user.photoUrl,

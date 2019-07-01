@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'auth.dart';
 import 'package:flutter_just_toast/flutter_just_toast.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 class Login extends StatefulWidget {
-  Login({Key key, this.title, this.auth, this.onSignIn}) : super(key: key);
+  Login({Key key,  this.auth, this.onSignIn}) : super(key: key);
 
-  final String title;
   final BaseAuth auth;
   final VoidCallback onSignIn;
 
@@ -82,7 +82,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
               Padding(
                 padding: EdgeInsets.all(10),
               ),
-              MaterialButton(
+              GoogleSignInButton(
+                borderRadius: 30,
+
                 onPressed: () async {
                   try {
                     String userId = await widget.auth.googleSignIn();
@@ -96,12 +98,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         textColor: Colors.black);
                   }
                 },
-                child: Text(
-                  "Signin with Google",
-                  style: TextStyle(color: Colors.white),
-                ),
-                color: Colors.green,
-              )
+                darkMode: false, // default: false
+              ),
             ],
           )
         ],
