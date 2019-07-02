@@ -139,7 +139,8 @@ class _HomeState extends State<Home> {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: () {},
+              onTap: () {                        Navigator.pushNamed(context, '/timetable');
+},
               child: Container(
                 height: 100,
                 width: MediaQuery.of(context).size.width,

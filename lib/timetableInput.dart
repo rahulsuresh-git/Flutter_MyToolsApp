@@ -20,19 +20,36 @@ class _TimetableInputState extends State<TimetableInput> {
   final EController = TextEditingController();
   final FController = TextEditingController();
   final GController = TextEditingController();
+  Future<Null> getSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      AController.text = prefs.getString('A');
+      BController.text = prefs.getString('B');
+      CController.text = prefs.getString('C');
+      DController.text = prefs.getString('D');
+      EController.text = prefs.getString('E');
+      FController.text = prefs.getString('F');
+      GController.text = prefs.getString('G');
+    });
+  }
 
-asyncFunc() async { // Async func to handle Futures easier; or use Future.then
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString('A', AController.text);
-prefs.setString('B', BController.text);
-prefs.setString('C', CController.text);
-prefs.setString('D', DController.text);
-prefs.setString('E', EController.text);
-prefs.setString('F', FController.text);
-prefs.setString('G', GController.text);
- 
+  @override
+  void initState() {
+    super.initState();
+    getSharedPrefs();
+  }
 
-}
+  asyncFunc() async {
+    // Async func to handle Futures easier; or use Future.then
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('A', AController.text);
+    prefs.setString('B', BController.text);
+    prefs.setString('C', CController.text);
+    prefs.setString('D', DController.text);
+    prefs.setString('E', EController.text);
+    prefs.setString('F', FController.text);
+    prefs.setString('G', GController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +97,8 @@ prefs.setString('G', GController.text);
                         ),
                         keyboardType: TextInputType.text,
                         autocorrect: true,
-                      controller: AController,
+                        controller: AController,
                       ),
-
-                      
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 10),
@@ -105,7 +120,7 @@ prefs.setString('G', GController.text);
                         keyboardType: TextInputType.text,
                         autocorrect: true,
                         controller: BController,
-                      ), 
+                      ),
                     ),
                   ],
                 ),
@@ -126,8 +141,9 @@ prefs.setString('G', GController.text);
                               : 'Registration Number is not in the right format!',
                         ),
                         keyboardType: TextInputType.text,
-                        autocorrect: true, controller: CController,
-                      ), 
+                        autocorrect: true,
+                        controller: CController,
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 10),
@@ -148,7 +164,7 @@ prefs.setString('G', GController.text);
                         ),
                         keyboardType: TextInputType.text,
                         autocorrect: true,
-                         controller: DController,
+                        controller: DController,
                       ),
                     ),
                   ],
@@ -170,7 +186,8 @@ prefs.setString('G', GController.text);
                               : 'Registration Number is not in the right format!',
                         ),
                         keyboardType: TextInputType.text,
-                        autocorrect: true, controller: EController,
+                        autocorrect: true,
+                        controller: EController,
                       ),
                     ),
                     Padding(
@@ -190,7 +207,7 @@ prefs.setString('G', GController.text);
                               ? null
                               : 'Registration Number is not in the right format!',
                         ),
-                         controller: FController,
+                        controller: FController,
                         keyboardType: TextInputType.text,
                         autocorrect: true,
                       ),
@@ -212,45 +229,46 @@ prefs.setString('G', GController.text);
                   ),
                   keyboardType: TextInputType.text,
                   autocorrect: true,
-                   controller: GController,
+                  controller: GController,
                 ),
-                Padding(padding:EdgeInsets.only(top:20)),
+                Padding(padding: EdgeInsets.only(top: 20)),
                 Card(
-          color: Colors.red,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(24),
-            onTap: () async{
-             await asyncFunc();
-               await _firebaseAuth.currentUser().then((userId) {
-                  DocumentReference ref =
-                      _db.collection("timetable").document(userId.uid);
-                  ref.setData({
-                    'A': AController.text,
-                    'B': BController.text,
-                    'C': CController.text,
-                    'D': DController.text,
-                    'E': EController.text,
-                    'F':FController.text,
-                    'G':GController.text,
-                  }, merge: true);
-                });
-              Navigator.pushNamed(context, '/timetableInputTwo');
-            },
-            child: Container(
-              height: 50,
-              width: 200,
-              child: Center(
-                child: Text(
-                  'Save and Proceed',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                  color: Colors.red,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(24),
+                    onTap: () async {
+                      await asyncFunc();
+                      await _firebaseAuth.currentUser().then((userId) {
+                        DocumentReference ref =
+                            _db.collection("timetable").document(userId.uid);
+                        ref.setData({
+                          'A': AController.text,
+                          'B': BController.text,
+                          'C': CController.text,
+                          'D': DController.text,
+                          'E': EController.text,
+                          'F': FController.text,
+                          'G': GController.text,
+                        }, merge: true);
+                      });
+                      Navigator.pushNamed(context, '/timetableInputTwo');
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 200,
+                      child: Center(
+                        child: Text(
+                          'Save and Proceed',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w300),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ),
               ],
             ),
           ),

@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Timetable extends StatefulWidget {
   @override
@@ -6,8 +9,34 @@ class Timetable extends StatefulWidget {
 }
 
 class _TimetableState extends State<Timetable> {
-String A="a",B="b",C="c",D="d",E="e",F="f",G="g";
+  String A = "a", B = "b", C = "c", D = "d", E = "e", F = "f", G = "g";
 
+  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  Future<Null> getSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      A = prefs.getString('A');
+
+      B = prefs.getString('B');
+
+      C = prefs.getString('C');
+
+      D = prefs.getString('D');
+
+      E = prefs.getString('E');
+
+      F = prefs.getString('F');
+
+      G = prefs.getString('G');
+    });
+  }
+
+  @override
+  void initState()  {
+    super.initState();
+       getSharedPrefs();  
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +105,7 @@ String A="a",B="b",C="c",D="d",E="e",F="f",G="g";
                   Center(child: Text("9", style: TextStyle(fontSize: 10))),
                   Center(child: Text("10", style: TextStyle(fontSize: 10))),
                 ]),
-                 TableRow(children: [
+                TableRow(children: [
                   Center(
                       child: Text(
                     "\nDay 1 \n",
@@ -93,7 +122,7 @@ String A="a",B="b",C="c",D="d",E="e",F="f",G="g";
                   Center(child: Text(F, style: TextStyle(fontSize: 10))),
                   Center(child: Text(D, style: TextStyle(fontSize: 10))),
                 ]),
-                  TableRow(children: [
+                TableRow(children: [
                   Center(
                       child: Text(
                     "\nDay 2 \n",
@@ -110,7 +139,7 @@ String A="a",B="b",C="c",D="d",E="e",F="f",G="g";
                   Center(child: Text("9", style: TextStyle(fontSize: 10))),
                   Center(child: Text("10", style: TextStyle(fontSize: 10))),
                 ]),
-                  TableRow(children: [
+                TableRow(children: [
                   Center(
                       child: Text(
                     "\nDay 3 \n",
@@ -127,7 +156,7 @@ String A="a",B="b",C="c",D="d",E="e",F="f",G="g";
                   Center(child: Text("9", style: TextStyle(fontSize: 10))),
                   Center(child: Text("10", style: TextStyle(fontSize: 10))),
                 ]),
-                  TableRow(children: [
+                TableRow(children: [
                   Center(
                       child: Text(
                     "\nDay 4 \n",
@@ -144,7 +173,7 @@ String A="a",B="b",C="c",D="d",E="e",F="f",G="g";
                   Center(child: Text("9", style: TextStyle(fontSize: 10))),
                   Center(child: Text("10", style: TextStyle(fontSize: 10))),
                 ]),
-                  TableRow(children: [
+                TableRow(children: [
                   Center(
                       child: Text(
                     "\nDay 5 \n",
@@ -161,7 +190,6 @@ String A="a",B="b",C="c",D="d",E="e",F="f",G="g";
                   Center(child: Text(B, style: TextStyle(fontSize: 10))),
                   Center(child: Text(C, style: TextStyle(fontSize: 10))),
                 ]),
-                
               ]),
         ],
       )),
