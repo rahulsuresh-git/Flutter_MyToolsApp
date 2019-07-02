@@ -48,15 +48,7 @@ class _HomeState extends State<Home> {
         });
         prefs.setString('batch', _batch);
         prefs.setString('year', _year);
-        if (doc['tt'] == null || doc['tt'] == false) {
-          setState(() {
-            tt = false;
-          });
-        } else if (doc['tt'] == true) {
-          setState(() {
-            tt = true;
-          });
-        }
+
         if (doc['profile'] == null || doc['profile'] == false) {
           setState(() {
             _profile = false;
@@ -71,6 +63,20 @@ class _HomeState extends State<Home> {
       setState(() {
         _userName = temp[0];
         _photoUrl = userId.photoUrl;
+      });
+
+      document =
+          Firestore.instance.collection("timetable").document(userId.uid).get();
+      await document.then((doc) {
+        if (doc['tt'] == null || doc['tt'] == false) {
+          setState(() {
+            tt = false;
+          });
+        } else if (doc['tt'] == true) {
+          setState(() {
+            tt = true;
+          });
+        }
       });
     });
   }
@@ -155,7 +161,7 @@ class _HomeState extends State<Home> {
                   else {
                     Navigator.pushNamed(context, '/timetableInput');
                     setState(() {
-                     tt=true; 
+                      tt = true;
                     });
                   }
                 } else {
@@ -189,10 +195,12 @@ class _HomeState extends State<Home> {
             child: InkWell(
               borderRadius: BorderRadius.circular(30),
               onTap: () async {
-              
-
                 if (tt != false) {
-                  Navigator.pushNamed(context, '/timetable');
+                  if (_batch == "Batch 1") {
+                    Navigator.pushNamed(context, '/timetableOne');
+                  } else {
+                    Navigator.pushNamed(context, '/timetable');
+                  }
                 } else {
                   Toast.show(
                       message: "Kindly create a timetable first!",

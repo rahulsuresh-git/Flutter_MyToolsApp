@@ -27,9 +27,9 @@ class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
   String _batch = "";
   Future<Null> getSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-  setState(() {
-        _batch = prefs.getString('batch');
-      });
+    setState(() {
+      _batch = prefs.getString('batch');
+    });
     // if (prefs.getString('dropdownPrac1') != null || dropdownPrac1 != "Select")
     //   setState(() {
     //     dropdownPrac1 = prefs.getString('dropdownPrac1');
@@ -98,23 +98,27 @@ class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
   asyncFunc() async {
     // Async func to handle Futures easier; or use Future.then
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('dropdownPrac1', dropdownPrac1);
-    prefs.setString('dropdownPrac2', dropdownPrac2);
-    prefs.setString('dropdownPrac3', dropdownPrac3);
-    prefs.setString('dropdownPrac4', dropdownPrac4);
-    prefs.setString('dropdownPrac5', dropdownPrac5);
-    prefs.setString('_labOne', _labOne.text);
-    prefs.setString('_labTwo', _labTwo.text);
-    prefs.setString('_labThree', _labThree.text);
-    prefs.setString('_labFour', _labFour.text);
-    prefs.setString('_labFive', _labFive.text);
+    // prefs.setString('dropdownPrac1', dropdownPrac1);
+    // prefs.setString('dropdownPrac2', dropdownPrac2);
+    // prefs.setString('dropdownPrac3', dropdownPrac3);
+    // prefs.setString('dropdownPrac4', dropdownPrac4);
+    // prefs.setString('dropdownPrac5', dropdownPrac5);
+    // prefs.setString('_labOne', _labOne.text);
+    // prefs.setString('_labTwo', _labTwo.text);
+    // prefs.setString('_labThree', _labThree.text);
+    // prefs.setString('_labFour', _labFour.text);
+    // prefs.setString('_labFive', _labFive.text);
+    prefs.setString(dropdownPrac1, _labOne.text);
+    prefs.setString(dropdownPrac2, _labTwo.text);
+    prefs.setString(dropdownPrac3, _labThree.text);
+    prefs.setString(dropdownPrac4, _labFour.text);
+    prefs.setString(dropdownPrac5, _labFive.text);
   }
 
   @override
   void initState() {
     super.initState();
     getSharedPrefs();
-
   }
 
   @override
@@ -256,7 +260,7 @@ class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
                                   });
                                 },
                                 items: <String>[
-                                   "Select",
+                                  "Select",
                                   "P6 P7",
                                   "P7 P8",
                                   "P8 P9",
@@ -402,7 +406,7 @@ class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
                                   });
                                 },
                                 items: <String>[
-                                 "Select",
+                                  "Select",
                                   "P6 P7",
                                   "P7 P8",
                                   "P8 P9",
@@ -540,19 +544,19 @@ class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
                       await asyncFunc();
                       await _firebaseAuth.currentUser().then((userId) {
                         DocumentReference ref =
-                            _db.collection("timetable").document(userId.uid);
+                            _db.collection("pracs").document(userId.uid);
                         ref.setData({
                           dropdownPrac1: _labOne.text,
                           dropdownPrac2: _labTwo.text,
                           dropdownPrac3: _labThree.text,
                           dropdownPrac4: _labFour.text,
                           dropdownPrac5: _labFive.text,
-                        }, merge: true);
+                        });
                         print("done");
                       });
 
                       Navigator.pop(context);
-                      Navigator.pushReplacementNamed(context, '/timetable');
+                      Navigator.pushReplacementNamed(context, '/timetableOne');
                     },
                     child: Container(
                       height: 50,
