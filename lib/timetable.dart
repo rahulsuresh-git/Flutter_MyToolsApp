@@ -74,6 +74,9 @@ class _TimetableState extends State<Timetable> {
       F = prefs.getString('F');
       G = prefs.getString('G');
     });
+setState(() {
+ P1=P2=P3=P4=P5=P16=P17=P18=P19=P20=P21=P22=P23=P24=P25=P36=P37=P38=P39=P40=P41=P42=P43=P44=P45=" "; 
+});
  if(prefs.getString(H)!=null)
   {
     setState(() {

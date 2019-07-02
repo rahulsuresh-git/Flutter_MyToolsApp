@@ -88,6 +88,11 @@ class _TimetableInputTwoBTwoState extends State<TimetableInputTwoBTwo> {
   asyncFunc() async {
     // Async func to handle Futures easier; or use Future.then
     SharedPreferences prefs = await SharedPreferences.getInstance();
+     prefs.setString(dropdownPrac1, '');
+    prefs.setString(dropdownPrac2, '');
+    prefs.setString(dropdownPrac3, '');
+    prefs.setString(dropdownPrac4, '');
+    prefs.setString(dropdownPrac5, '');
     // prefs.setString('dropdownPrac1', dropdownPrac1);
     // prefs.setString('dropdownPrac2', dropdownPrac2);
     // prefs.setString('dropdownPrac3', dropdownPrac3);
@@ -99,7 +104,6 @@ class _TimetableInputTwoBTwoState extends State<TimetableInputTwoBTwo> {
     // prefs.setString('_labFour', _labFour.text);
     // prefs.setString('_labFive', _labFive.text);
      prefs.setString(dropdownPrac1, _labOne.text);
-
     prefs.setString(dropdownPrac2, _labTwo.text);
     prefs.setString(dropdownPrac3, _labThree.text);
     prefs.setString(dropdownPrac4, _labFour.text);
