@@ -45,13 +45,13 @@ class _TimetableInputState extends State<TimetableInput> {
   asyncFunc() async {
     // Async func to handle Futures easier; or use Future.then
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('A', AController.text);
-    prefs.setString('B', BController.text);
-    prefs.setString('C', CController.text);
-    prefs.setString('D', DController.text);
-    prefs.setString('E', EController.text);
-    prefs.setString('F', FController.text);
-    prefs.setString('G', GController.text);
+    prefs.setString('A', AController.text.toUpperCase());
+    prefs.setString('B', BController.text.toUpperCase());
+    prefs.setString('C', CController.text.toUpperCase());
+    prefs.setString('D', DController.text.toUpperCase());
+    prefs.setString('E', EController.text.toUpperCase());
+    prefs.setString('F', FController.text.toUpperCase());
+    prefs.setString('G', GController.text.toUpperCase());
   }
 
   @override
@@ -103,10 +103,12 @@ class _TimetableInputState extends State<TimetableInput> {
                 new Row(
                   children: <Widget>[
                     new Flexible(
-                      child: TextFormField(
+                      child: TextField(
+
                         inputFormatters: [
-                          LengthLimitingTextInputFormatter(15),
+                          LengthLimitingTextInputFormatter(50),
                         ],
+                          
                         decoration: InputDecoration(
                           labelText: "A Slot ",
                           focusedBorder: UnderlineInputBorder(
@@ -119,6 +121,7 @@ class _TimetableInputState extends State<TimetableInput> {
                         keyboardType: TextInputType.text,
                         autocorrect: true,
                         controller: AController,
+                        
                       ),
                     ),
                     Padding(

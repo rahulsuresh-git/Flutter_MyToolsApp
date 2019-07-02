@@ -1,5 +1,5 @@
 name: mytools_flutter
-description: A new Flutter application.
+description: An easy way to manage the daily life at SRMIST!
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -54,7 +54,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/b2.png
+     - assets/logo.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
