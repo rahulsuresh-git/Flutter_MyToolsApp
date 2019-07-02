@@ -114,7 +114,7 @@ class _HomeState extends State<Home> {
                 if (!_profile || _profile == null)
                   Navigator.pushNamed(context, '/profile');
                 else {
-                  print("push to tt");
+                  Navigator.pushNamed(context, '/timetableInput');
                 }
               },
               child: Container(

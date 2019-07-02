@@ -70,8 +70,6 @@ class _ProfileState extends State<Profile> {
   void _saveData() async {
     FocusScope.of(context).requestFocus(new FocusNode());
     _showDialog();
-
-    print("hi");
   }
 
   @override

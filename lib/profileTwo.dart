@@ -60,7 +60,6 @@ class _ProfileTwoState extends State<ProfileTwo> {
   void _saveData() async {
     FocusScope.of(context).requestFocus(new FocusNode());
     _showDialog();
-
   }
 
   @override
