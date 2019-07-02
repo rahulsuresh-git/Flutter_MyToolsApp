@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TimetableInputTwoBOne extends StatefulWidget {
+class TimetableInputTwoBTwo extends StatefulWidget {
   @override
-  _TimetableInputTwoBOneState createState() => _TimetableInputTwoBOneState();
+  _TimetableInputTwoBTwoState createState() => _TimetableInputTwoBTwoState();
 }
 
-class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
+class _TimetableInputTwoBTwoState extends State<TimetableInputTwoBTwo> {
   final _labOne = TextEditingController();
   final _labTwo = TextEditingController();
   final _labThree = TextEditingController();
@@ -30,59 +30,59 @@ class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
   setState(() {
         _batch = prefs.getString('batch');
       });
-    if (dropdownPrac1 != null)
-      setState(() {
-        dropdownPrac1 = prefs.getString('dropdownPrac1');
-      });
-    else {
-      setState(() {
-        dropdownPrac1 = "Select";
-      });
-    }
+    // if (dropdownPrac1 != null)
+    //   setState(() {
+    //     dropdownPrac1 = prefs.getString('dropdownPrac1');
+    //   });
+    // else {
+    //   setState(() {
+    //     dropdownPrac1 = "Select";
+    //   });
+    // }
 
-    if (dropdownPrac2 != null)
-      setState(() {
-        dropdownPrac2 = prefs.getString('dropdownPrac2');
-      });
-    else {
-      setState(() {
-        dropdownPrac2 = "Select";
-      });
-    }
-    if (dropdownPrac3 != null)
-      setState(() {
-        dropdownPrac3 = prefs.getString('dropdownPrac3');
-      });
-    else {
-      setState(() {
-        dropdownPrac3 = "Select";
-      });
-    }
-    if (dropdownPrac4 != null)
-      setState(() {
-        dropdownPrac4 = prefs.getString('dropdownPrac4');
-      });
-    else {
-      setState(() {
-        dropdownPrac4= "Select";
-      });
-    }
-    if (dropdownPrac5 != null)
-      setState(() {
-        dropdownPrac5 = prefs.getString('dropdownPrac5');
-      });
-    else {
-      setState(() {
-        dropdownPrac5 = "Select";
-      });
-    }
-    setState(() {
-      _labOne.text = prefs.getString('_labOne');
-      _labTwo.text = prefs.getString('_labTwo');
-      _labThree.text = prefs.getString('_labThree');
-      _labFour.text = prefs.getString('_labFour');
-      _labFive.text = prefs.getString('_labFive');
-    });
+    // if (dropdownPrac2 != null)
+    //   setState(() {
+    //     dropdownPrac2 = prefs.getString('dropdownPrac2');
+    //   });
+    // else {
+    //   setState(() {
+    //     dropdownPrac2 = "Select";
+    //   });
+    // }
+    // if (dropdownPrac3 != null)
+    //   setState(() {
+    //     dropdownPrac3 = prefs.getString('dropdownPrac3');
+    //   });
+    // else {
+    //   setState(() {
+    //     dropdownPrac3 = "Select";
+    //   });
+    // }
+    // if (dropdownPrac4 != null)
+    //   setState(() {
+    //     dropdownPrac4 = prefs.getString('dropdownPrac4');
+    //   });
+    // else {
+    //   setState(() {
+    //     dropdownPrac4= "Select";
+    //   });
+    // }
+    // if (dropdownPrac5 != null)
+    //   setState(() {
+    //     dropdownPrac5 = prefs.getString('dropdownPrac5');
+    //   });
+    // else {
+    //   setState(() {
+    //     dropdownPrac5 = "Select";
+    //   });
+    // }
+    // setState(() {
+    //   _labOne.text = prefs.getString('_labOne');
+    //   _labTwo.text = prefs.getString('_labTwo');
+    //   _labThree.text = prefs.getString('_labThree');
+    //   _labFour.text = prefs.getString('_labFour');
+    //   _labFive.text = prefs.getString('_labFive');
+    // });
   }
 
   asyncFunc() async {
@@ -104,6 +104,7 @@ class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
   void initState() {
     super.initState();
     getSharedPrefs();
+
   }
 
   @override

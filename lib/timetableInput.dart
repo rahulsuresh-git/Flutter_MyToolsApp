@@ -32,10 +32,8 @@ class _TimetableInputState extends State<TimetableInput> {
       EController.text = prefs.getString('E');
       FController.text = prefs.getString('F');
       GController.text = prefs.getString('G');
-            _batch = prefs.getString('batch');
-
+      _batch = prefs.getString('batch');
     });
- 
   }
 
   @override
@@ -275,9 +273,14 @@ class _TimetableInputState extends State<TimetableInput> {
                           'E': EController.text,
                           'F': FController.text,
                           'G': GController.text,
+                          'tt': true,
                         }, merge: true);
                       });
-                      Navigator.pushNamed(context, '/TimetableInputTwoBOne');
+                      print(_batch);
+                      if (_batch == "Batch 2")
+                        Navigator.pushNamed(context, '/TimetableInputTwoBTwo');
+                      else if (_batch == "Batch 1")
+                        Navigator.pushNamed(context, '/TimetableInputTwoBOne');
                     },
                     child: Container(
                       height: 50,

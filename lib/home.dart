@@ -29,22 +29,35 @@ class _HomeState extends State<Home> {
   String _userName = "";
   String uid;
   bool net = false;
+  bool tt = false;
   String _photoUrl = "";
   bool _profile = false;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
-String _batch="";
+  String _batch = "";
+  String _year = "";
 
- Future<Null> getSharedPrefs() async {
+  Future<Null> getSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-      _firebaseAuth.currentUser().then((userId) async {
+    _firebaseAuth.currentUser().then((userId) async {
       var document =
           Firestore.instance.collection("users").document(userId.uid).get();
       await document.then((doc) {
-         setState(() {
+        setState(() {
           _batch = doc['batch'];
+          _year = doc['year'];
         });
-                prefs.setString('batch', _batch);
-        if (doc['profile'] == null) {
+        prefs.setString('batch', _batch);
+        prefs.setString('year', _year);
+        if (doc['tt'] == null || doc['tt'] == false) {
+          setState(() {
+            tt = false;
+          });
+        } else if (doc['tt'] == true) {
+          setState(() {
+            tt = true;
+          });
+        }
+        if (doc['profile'] == null || doc['profile'] == false) {
           setState(() {
             _profile = false;
           });
@@ -60,11 +73,12 @@ String _batch="";
         _photoUrl = userId.photoUrl;
       });
     });
- }
+  }
+
   @override
   void initState() {
     super.initState();
-  getSharedPrefs();
+    getSharedPrefs();
   }
 
   Widget build(BuildContext context) {
@@ -140,6 +154,9 @@ String _batch="";
                     Navigator.pushNamed(context, '/profile');
                   else {
                     Navigator.pushNamed(context, '/timetableInput');
+                    setState(() {
+                     tt=true; 
+                    });
                   }
                 } else {
                   Toast.show(
@@ -171,8 +188,17 @@ String _batch="";
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: () {
-                Navigator.pushNamed(context, '/timetable');
+              onTap: () async {
+              
+
+                if (tt != false) {
+                  Navigator.pushNamed(context, '/timetable');
+                } else {
+                  Toast.show(
+                      message: "Kindly create a timetable first!",
+                      duration: Delay.LONG,
+                      textColor: Colors.black);
+                }
               },
               child: Container(
                 height: 90,

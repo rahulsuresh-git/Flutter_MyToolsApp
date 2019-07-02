@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'auth.dart';
 import 'package:flutter_just_toast/flutter_just_toast.dart';
 
@@ -17,6 +18,27 @@ class _ProfileTwoState extends State<ProfileTwo> {
   String dropdownBatch = 'Batch 1';
   String dropdownYear = '1st Year';
 
+  Future<Null> getSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      dropdownBatch = prefs.getString('batch');
+      dropdownYear = prefs.getString('year');
+    });
+  }
+
+  asyncFunc() async {
+    // Async func to handle Futures easier; or use Future.then
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('batch', dropdownBatch);
+    prefs.setString('year', dropdownYear);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getSharedPrefs();
+  }
+
   void _showDialog() {
     // flutter defined function
     showDialog(
@@ -31,6 +53,7 @@ class _ProfileTwoState extends State<ProfileTwo> {
             new FlatButton(
               child: new Text("Yes"),
               onPressed: () async {
+                await asyncFunc();
                 await _firebaseAuth.currentUser().then((userId) {
                   DocumentReference ref =
                       _db.collection("users").document(userId.uid);
@@ -60,21 +83,6 @@ class _ProfileTwoState extends State<ProfileTwo> {
   void _saveData() async {
     FocusScope.of(context).requestFocus(new FocusNode());
     _showDialog();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _firebaseAuth.currentUser().then((userId) async {
-      var document =
-          Firestore.instance.collection("users").document(userId.uid).get();
-      await document.then((doc) {
-        setState(() {
-          dropdownBatch = doc['batch'];
-          dropdownYear = doc['year'];
-        });
-      });
-    });
   }
 
   @override

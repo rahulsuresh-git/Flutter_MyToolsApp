@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mytools_flutter/TimetableInputTwoBOne.dart';
 import 'package:mytools_flutter/timetableInput.dart';
-import 'package:mytools_flutter/TimetableInputTwo.dart';
+import 'package:mytools_flutter/timetableInputTwoBTwo.dart';
 import 'login.dart';
 import 'root.dart';
 import 'home.dart';
@@ -40,7 +41,9 @@ class _MyAppState extends State<MyApp> {
         '/profileTwo': (BuildContext context) => new ProfileTwo(),
         '/timetable': (BuildContext context) => new Timetable(),
         '/timetableInput': (BuildContext context) => new TimetableInput(),
-        '/TimetableInputTwoBOne': (BuildContext context) => new TimetableInputTwoBOne(),
+        '/TimetableInputTwoBTwo': (BuildContext context) => new TimetableInputTwoBTwo(),
+                '/TimetableInputTwoBOne': (BuildContext context) => new TimetableInputTwoBOne(),
+
       },
     );
   }
