@@ -4,33 +4,106 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TimetableInputTwo extends StatefulWidget {
+class TimetableInputTwoBOne extends StatefulWidget {
   @override
-  _TimetableInputTwoState createState() => _TimetableInputTwoState();
+  _TimetableInputTwoBOneState createState() => _TimetableInputTwoBOneState();
 }
 
-class _TimetableInputTwoState extends State<TimetableInputTwo> {
+class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
+  final _labOne = TextEditingController();
+  final _labTwo = TextEditingController();
+  final _labThree = TextEditingController();
+  final _labFour = TextEditingController();
+  final _labFive = TextEditingController();
+
   bool _validate = true;
   final Firestore _db = Firestore.instance;
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  String dropdownPrac1 = "P1 P2";
-  String dropdownPrac2 = "P1 P2";
-  String dropdownPrac3 = "P1 P2";
-  String dropdownPrac4 = "P1 P2";
-  String dropdownPrac5 = "P1 P2";
+  String dropdownPrac1 = "Select";
+  String dropdownPrac2 = "Select";
+  String dropdownPrac3 = "Select";
+  String dropdownPrac4 = "Select";
+  String dropdownPrac5 = "Select";
   String _batch = "";
   Future<Null> getSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+  setState(() {
+        _batch = prefs.getString('batch');
+      });
+    if (dropdownPrac1 != null)
+      setState(() {
+        dropdownPrac1 = prefs.getString('dropdownPrac1');
+      });
+    else {
+      setState(() {
+        dropdownPrac1 = "Select";
+      });
+    }
+
+    if (dropdownPrac2 != null)
+      setState(() {
+        dropdownPrac2 = prefs.getString('dropdownPrac2');
+      });
+    else {
+      setState(() {
+        dropdownPrac2 = "Select";
+      });
+    }
+    if (dropdownPrac3 != null)
+      setState(() {
+        dropdownPrac3 = prefs.getString('dropdownPrac3');
+      });
+    else {
+      setState(() {
+        dropdownPrac3 = "Select";
+      });
+    }
+    if (dropdownPrac4 != null)
+      setState(() {
+        dropdownPrac4 = prefs.getString('dropdownPrac4');
+      });
+    else {
+      setState(() {
+        dropdownPrac4= "Select";
+      });
+    }
+    if (dropdownPrac5 != null)
+      setState(() {
+        dropdownPrac5 = prefs.getString('dropdownPrac5');
+      });
+    else {
+      setState(() {
+        dropdownPrac5 = "Select";
+      });
+    }
     setState(() {
-      _batch = prefs.getString('batch');
+      _labOne.text = prefs.getString('_labOne');
+      _labTwo.text = prefs.getString('_labTwo');
+      _labThree.text = prefs.getString('_labThree');
+      _labFour.text = prefs.getString('_labFour');
+      _labFive.text = prefs.getString('_labFive');
     });
+  }
+
+  asyncFunc() async {
+    // Async func to handle Futures easier; or use Future.then
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('dropdownPrac1', dropdownPrac1);
+    prefs.setString('dropdownPrac2', dropdownPrac2);
+    prefs.setString('dropdownPrac3', dropdownPrac3);
+    prefs.setString('dropdownPrac4', dropdownPrac4);
+    prefs.setString('dropdownPrac5', dropdownPrac5);
+    prefs.setString('_labOne', _labOne.text);
+    prefs.setString('_labTwo', _labTwo.text);
+    prefs.setString('_labThree', _labThree.text);
+    prefs.setString('_labFour', _labFour.text);
+    prefs.setString('_labFive', _labFive.text);
   }
 
   @override
   void initState() {
     super.initState();
     getSharedPrefs();
-    
   }
 
   @override
@@ -50,7 +123,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                 Text("Practical Slots",
                     style:
                         TextStyle(fontWeight: FontWeight.w200, fontSize: 20)),
-                   Padding(padding: EdgeInsets.only(top: 5)),
+                Padding(padding: EdgeInsets.only(top: 5)),
                 Card(
                   color: Colors.blue,
                   shape: RoundedRectangleBorder(
@@ -74,7 +147,6 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                       style:
                           TextStyle(fontWeight: FontWeight.w200, fontSize: 15)),
                 ),
-           
                 Center(
                   child: Text("Example: OS LAB TP601",
                       style:
@@ -83,7 +155,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                 Row(
                   children: <Widget>[
                     new Flexible(
-                      flex: 2,
+                      flex: 1,
                       child: Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,6 +172,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                                   });
                                 },
                                 items: <String>[
+                                  "Select",
                                   "P1 P2",
                                   "P3 P4",
                                   "P16 P17",
@@ -135,7 +208,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                           LengthLimitingTextInputFormatter(15),
                         ],
                         decoration: InputDecoration(
-                          labelText: "Lab Slot",
+                          labelText: "Subject+Venue",
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.green),
                           ),
@@ -145,6 +218,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                         ),
                         keyboardType: TextInputType.text,
                         autocorrect: true,
+                        controller: _labOne,
                       ),
                     ),
                   ],
@@ -152,7 +226,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                 Row(
                   children: <Widget>[
                     new Flexible(
-                      flex: 2,
+                      flex: 1,
                       child: Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -169,6 +243,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                                   });
                                 },
                                 items: <String>[
+                                  "Select",
                                   "P1 P2",
                                   "P3 P4",
                                   "P16 P17",
@@ -204,7 +279,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                           LengthLimitingTextInputFormatter(15),
                         ],
                         decoration: InputDecoration(
-                          labelText: "Lab Slot",
+                          labelText: "Subject+Venue",
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.green),
                           ),
@@ -214,6 +289,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                         ),
                         keyboardType: TextInputType.text,
                         autocorrect: true,
+                        controller: _labTwo,
                       ),
                     ),
                   ],
@@ -221,7 +297,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                 Row(
                   children: <Widget>[
                     new Flexible(
-                      flex: 2,
+                      flex: 1,
                       child: Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -238,6 +314,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                                   });
                                 },
                                 items: <String>[
+                                  "Select",
                                   "P1 P2",
                                   "P3 P4",
                                   "P16 P17",
@@ -273,7 +350,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                           LengthLimitingTextInputFormatter(15),
                         ],
                         decoration: InputDecoration(
-                          labelText: "Lab Slot",
+                          labelText: "Subject+Venue",
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.green),
                           ),
@@ -283,6 +360,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                         ),
                         keyboardType: TextInputType.text,
                         autocorrect: true,
+                        controller: _labThree,
                       ),
                     ),
                   ],
@@ -290,7 +368,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                 Row(
                   children: <Widget>[
                     new Flexible(
-                      flex: 2,
+                      flex: 1,
                       child: Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -307,6 +385,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                                   });
                                 },
                                 items: <String>[
+                                  "Select",
                                   "P1 P2",
                                   "P3 P4",
                                   "P16 P17",
@@ -342,7 +421,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                           LengthLimitingTextInputFormatter(15),
                         ],
                         decoration: InputDecoration(
-                          labelText: "Lab Slot",
+                          labelText: "Subject+Venue",
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.green),
                           ),
@@ -352,6 +431,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                         ),
                         keyboardType: TextInputType.text,
                         autocorrect: true,
+                        controller: _labFour,
                       ),
                     ),
                   ],
@@ -359,7 +439,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                 Row(
                   children: <Widget>[
                     new Flexible(
-                      flex: 2,
+                      flex: 1,
                       child: Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -376,6 +456,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                                   });
                                 },
                                 items: <String>[
+                                  "Select",
                                   "P1 P2",
                                   "P3 P4",
                                   "P16 P17",
@@ -411,7 +492,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                           LengthLimitingTextInputFormatter(15),
                         ],
                         decoration: InputDecoration(
-                          labelText: "Lab Slot",
+                          labelText: "Subject+Venue",
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.green),
                           ),
@@ -421,6 +502,7 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                         ),
                         keyboardType: TextInputType.text,
                         autocorrect: true,
+                        controller: _labFive,
                       ),
                     ),
                   ],
@@ -433,7 +515,21 @@ class _TimetableInputTwoState extends State<TimetableInputTwo> {
                   ),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(24),
-                    onTap: () {
+                    onTap: () async {
+                      await asyncFunc();
+                      await _firebaseAuth.currentUser().then((userId) {
+                        DocumentReference ref =
+                            _db.collection("timetable").document(userId.uid);
+                        ref.setData({
+                          dropdownPrac1: _labOne.text,
+                          dropdownPrac2: _labTwo.text,
+                          dropdownPrac3: _labThree.text,
+                          dropdownPrac4: _labFour.text,
+                          dropdownPrac5: _labFive.text,
+                        }, merge: true);
+                        print("done");
+                      });
+
                       Navigator.pop(context);
                       Navigator.pushReplacementNamed(context, '/timetable');
                     },

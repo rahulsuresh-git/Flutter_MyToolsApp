@@ -32,17 +32,10 @@ class _TimetableInputState extends State<TimetableInput> {
       EController.text = prefs.getString('E');
       FController.text = prefs.getString('F');
       GController.text = prefs.getString('G');
+            _batch = prefs.getString('batch');
+
     });
-    _firebaseAuth.currentUser().then((userId) async {
-      var document =
-          Firestore.instance.collection("users").document(userId.uid).get();
-      await document.then((doc) {
-        setState(() {
-          _batch = doc['batch'];
-        });
-        prefs.setString('batch', _batch);
-      });
-    });
+ 
   }
 
   @override
@@ -284,7 +277,7 @@ class _TimetableInputState extends State<TimetableInput> {
                           'G': GController.text,
                         }, merge: true);
                       });
-                      Navigator.pushNamed(context, '/timetableInputTwo');
+                      Navigator.pushNamed(context, '/TimetableInputTwoBOne');
                     },
                     child: Container(
                       height: 50,

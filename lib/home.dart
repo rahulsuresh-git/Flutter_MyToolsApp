@@ -4,12 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'auth.dart';
 import 'package:flutter_just_toast/flutter_just_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'dart:io';
 
 class Home extends StatefulWidget {
   Home({this.auth, this.onSignOut});
@@ -27,19 +28,22 @@ class _HomeState extends State<Home> {
   FirebaseUser userTemp;
   String _userName = "";
   String uid;
-
+  bool net = false;
   String _photoUrl = "";
   bool _profile = false;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
+String _batch="";
 
-  @override
-  void initState() {
-    super.initState();
-    _firebaseAuth.currentUser().then((userId) async {
+ Future<Null> getSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+      _firebaseAuth.currentUser().then((userId) async {
       var document =
           Firestore.instance.collection("users").document(userId.uid).get();
       await document.then((doc) {
-        print(doc['profile']);
+         setState(() {
+          _batch = doc['batch'];
+        });
+                prefs.setString('batch', _batch);
         if (doc['profile'] == null) {
           setState(() {
             _profile = false;
@@ -56,6 +60,11 @@ class _HomeState extends State<Home> {
         _photoUrl = userId.photoUrl;
       });
     });
+ }
+  @override
+  void initState() {
+    super.initState();
+  getSharedPrefs();
   }
 
   Widget build(BuildContext context) {
@@ -113,11 +122,31 @@ class _HomeState extends State<Home> {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: () {
-                if (!_profile || _profile == null)
-                  Navigator.pushNamed(context, '/profile');
-                else {
-                  Navigator.pushNamed(context, '/timetableInput');
+              onTap: () async {
+                try {
+                  final result = await InternetAddress.lookup('google.com');
+                  if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                    setState(() {
+                      net = true;
+                    });
+                  }
+                } on SocketException catch (_) {
+                  setState(() {
+                    net = false;
+                  });
+                }
+                if (net) {
+                  if (!_profile || _profile == null)
+                    Navigator.pushNamed(context, '/profile');
+                  else {
+                    Navigator.pushNamed(context, '/timetableInput');
+                  }
+                } else {
+                  Toast.show(
+                      message:
+                          "Internet connection needed to create/modify timetable",
+                      duration: Delay.LONG,
+                      textColor: Colors.black);
                 }
               },
               child: Container(
@@ -142,8 +171,9 @@ class _HomeState extends State<Home> {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: () {                        Navigator.pushNamed(context, '/timetable');
-},
+              onTap: () {
+                Navigator.pushNamed(context, '/timetable');
+              },
               child: Container(
                 height: 90,
                 width: MediaQuery.of(context).size.width,
@@ -198,21 +228,30 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          Padding(padding: EdgeInsets.only(top:20,)),
+          Padding(
+              padding: EdgeInsets.only(
+            top: 20,
+          )),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Developed with ",style: TextStyle(color:Colors.grey )),
-              Icon(Icons.favorite,size: 20,color: Colors.red[400],),
-              Text(" by ",style: TextStyle(color:Colors.grey )),
-                             new InkWell(
-                  child: new Text(
-                    "Rahul",
-                    style: TextStyle(color: Colors.blue, ),
+              Text("Developed with ", style: TextStyle(color: Colors.grey)),
+              Icon(
+                Icons.favorite,
+                size: 20,
+                color: Colors.red[400],
+              ),
+              Text(" by ", style: TextStyle(color: Colors.grey)),
+              new InkWell(
+                child: new Text(
+                  "Rahul",
+                  style: TextStyle(
+                    color: Colors.blue,
                   ),
-                  onTap: () =>launch('https://www.linkedin.com/in/rahulsuresh98/'),
-                )
-
+                ),
+                onTap: () =>
+                    launch('https://www.linkedin.com/in/rahulsuresh98/'),
+              )
             ],
           ),
         ],
