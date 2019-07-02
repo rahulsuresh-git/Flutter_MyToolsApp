@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_just_toast/flutter_just_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TimetableInput extends StatefulWidget {
@@ -20,6 +21,7 @@ class _TimetableInputState extends State<TimetableInput> {
   final EController = TextEditingController();
   final FController = TextEditingController();
   final GController = TextEditingController();
+  String _batch = "";
   Future<Null> getSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -30,6 +32,16 @@ class _TimetableInputState extends State<TimetableInput> {
       EController.text = prefs.getString('E');
       FController.text = prefs.getString('F');
       GController.text = prefs.getString('G');
+    });
+    _firebaseAuth.currentUser().then((userId) async {
+      var document =
+          Firestore.instance.collection("users").document(userId.uid).get();
+      await document.then((doc) {
+        setState(() {
+          _batch = doc['batch'];
+        });
+        prefs.setString('batch', _batch);
+      });
     });
   }
 
@@ -68,6 +80,24 @@ class _TimetableInputState extends State<TimetableInput> {
                 Text("Theory Slots",
                     style:
                         TextStyle(fontWeight: FontWeight.w200, fontSize: 20)),
+                Padding(padding: EdgeInsets.only(top: 5)),
+                Card(
+                  color: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Container(
+                    height: 35,
+                    width: 160,
+                    child: Center(
+                      child: Text(
+                        'You are in ' + _batch,
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                  ),
+                ),
                 Padding(padding: EdgeInsets.only(top: 20)),
                 Center(
                   child: Text("Note: Type in the format 'SUBJECT+VENUE'",
@@ -269,6 +299,20 @@ class _TimetableInputState extends State<TimetableInput> {
                     ),
                   ),
                 ),
+                Padding(padding: EdgeInsets.only(top: 20)),
+                new InkWell(
+                  child: new Text(
+                    "Why should I enter manually?",
+                    style: TextStyle(color: Colors.blue, fontSize: 16),
+                  ),
+                  onTap: () async {
+                    Toast.show(
+                        message:
+                            "Accessing/Scraping Academia data without Zoho's legal permission is strictly prohibited.",
+                        duration: Delay.LONG,
+                        textColor: Colors.black);
+                  },
+                )
               ],
             ),
           ),

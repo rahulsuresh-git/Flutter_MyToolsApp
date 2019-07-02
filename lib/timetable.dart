@@ -41,6 +41,11 @@ class _TimetableState extends State<Timetable> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text("My Daily Timetable"),
+      ),
       body: Center(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -7,6 +7,9 @@ import 'package:flutter/rendering.dart';
 import 'auth.dart';
 import 'package:flutter_just_toast/flutter_just_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class Home extends StatefulWidget {
   Home({this.auth, this.onSignOut});
@@ -118,7 +121,7 @@ class _HomeState extends State<Home> {
                 }
               },
               child: Container(
-                height: 100,
+                height: 90,
                 width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: Text(
@@ -142,7 +145,7 @@ class _HomeState extends State<Home> {
               onTap: () {                        Navigator.pushNamed(context, '/timetable');
 },
               child: Container(
-                height: 100,
+                height: 90,
                 width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: Text(
@@ -181,7 +184,7 @@ class _HomeState extends State<Home> {
                     }
                   },
                   child: Container(
-                    height: 100,
+                    height: 90,
                     width: MediaQuery.of(context).size.width,
                     child: Center(
                       child: Text(
@@ -194,7 +197,24 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-          )
+          ),
+          Padding(padding: EdgeInsets.only(top:20,)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Developed with ",style: TextStyle(color:Colors.grey )),
+              Icon(Icons.favorite,size: 20,color: Colors.red[400],),
+              Text(" by ",style: TextStyle(color:Colors.grey )),
+                             new InkWell(
+                  child: new Text(
+                    "Rahul",
+                    style: TextStyle(color: Colors.blue, ),
+                  ),
+                  onTap: () =>launch('https://www.linkedin.com/in/rahulsuresh98/'),
+                )
+
+            ],
+          ),
         ],
       ),
     );
