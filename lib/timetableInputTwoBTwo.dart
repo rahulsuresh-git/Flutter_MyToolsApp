@@ -41,7 +41,8 @@ class _TimetableInputTwoBTwoState extends State<TimetableInputTwoBTwo> {
     prefs.setString(dropdownPrac3, '');
     prefs.setString(dropdownPrac4, '');
     prefs.setString(dropdownPrac5, '');
-   
+         prefs.setString('tt','true');
+
      prefs.setString(dropdownPrac1, _labOne.text);
     prefs.setString(dropdownPrac2, _labTwo.text);
     prefs.setString(dropdownPrac3, _labThree.text);

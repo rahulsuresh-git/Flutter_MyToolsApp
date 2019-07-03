@@ -1,4 +1,4 @@
-package com.rahul.mytools_flutter;
+package com.rahul.stb;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

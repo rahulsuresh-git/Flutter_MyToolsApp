@@ -5,6 +5,7 @@ import 'package:flutter_just_toast/flutter_just_toast.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.auth, this.onSignIn}) : super(key: key);
@@ -70,11 +71,19 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAdMob.instance
+        .initialize(appId: "ca-app-pub-8068139846844354~2057510565")
+        .then((onValue) {
+      // myBanner
+      //   ..load()
+      //   ..show();
+    });
+
     return Scaffold(
       bottomNavigationBar: Stack(
         children: [
           new Container(
-            height: 50.0,
+            height: 135.0,
             color: Colors.white,
           ),
           Positioned(
@@ -87,7 +96,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("Developed with ", style: TextStyle(color: Colors.grey)),
+                    Text("Developed with ",
+                        style: TextStyle(color: Colors.grey)),
                     Icon(
                       Icons.favorite,
                       size: 20,
@@ -106,11 +116,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     )
                   ],
                 ),
-                Padding(padding:EdgeInsets.only(top:5)),
+                Padding(padding: EdgeInsets.only(top: 5)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                   
                     new InkWell(
                       child: new Text(
                         "Privacy Policy",
@@ -135,9 +144,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-             Image(image: AssetImage('assets/logo.png'),width: _iconAnimation.value*150,),
+              Image(
+                image: AssetImage('assets/logo.png'),
+                width: _iconAnimation.value * 150,
+              ),
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(5),
               ),
               Text("SRM MyTools v5.0",
                   style: TextStyle(
@@ -172,3 +184,28 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     );
   }
 }
+
+MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+  keywords: <String>['games', 'beautiful apps'],
+  contentUrl: 'https://flutter.io',
+  birthday: DateTime.now(),
+  childDirected: false,
+  designedForFamilies: false,
+  
+  gender:
+      MobileAdGender.male, // or MobileAdGender.female, MobileAdGender.unknown
+  testDevices: ["F80F5F49B900622047C7F39485FA5449"], // Android emulators are considered test devices
+);
+
+BannerAd myBanner = BannerAd(
+  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
+  // https://developers.google.com/admob/android/test-ads
+  // https://developers.google.com/admob/ios/test-ads
+  adUnitId: "ca-app-pub-8068139846844354/9655184581",
+  size: AdSize.smartBanner,
+  targetingInfo: targetingInfo,
+  
+  listener: (MobileAdEvent event) {
+    print("BannerAd event is $event");
+  },
+);

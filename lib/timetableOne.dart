@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TimetableOne extends StatefulWidget {
@@ -183,11 +184,18 @@ class _TimetableOneState extends State<TimetableOne> {
 
   @override
   Widget build(BuildContext context) {
+     FirebaseAdMob.instance
+        .initialize(appId: "ca-app-pub-8068139846844354~2057510565")
+        .then((onValue) {
+      // myBanner
+      //   ..load()
+      //   ..show();
+    });
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("My Daily TimetableOne"),
+        title: Text("My Daily Timetable"),
       ),
       body: Center(
           child: Column(
@@ -345,3 +353,27 @@ class _TimetableOneState extends State<TimetableOne> {
     );
   }
 }
+MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+  keywords: <String>['games', 'beautiful apps'],
+  contentUrl: 'https://flutter.io',
+  birthday: DateTime.now(),
+  childDirected: false,
+  designedForFamilies: false,
+  
+  gender:
+      MobileAdGender.male, // or MobileAdGender.female, MobileAdGender.unknown
+  testDevices: ["F80F5F49B900622047C7F39485FA5449"], // Android emulators are considered test devices
+);
+
+BannerAd myBanner = BannerAd(
+  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
+  // https://developers.google.com/admob/android/test-ads
+  // https://developers.google.com/admob/ios/test-ads
+  adUnitId: "ca-app-pub-8068139846844354/9655184581",
+  size: AdSize.smartBanner,
+  targetingInfo: targetingInfo,
+  
+  listener: (MobileAdEvent event) {
+    print("BannerAd event is $event");
+  },
+);

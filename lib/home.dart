@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
   String _userName = "";
   String uid;
   bool net = false;
-  bool tt = true;
+  String tt = "true";
   String _photoUrl = "";
   bool _profile = false;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -64,21 +64,22 @@ class _HomeState extends State<Home> {
         _userName = temp[0];
         _photoUrl = userId.photoUrl;
       });
-
-      document =
-          Firestore.instance.collection("timetable").document(userId.uid).get();
-      await document.then((doc) {
-        if (doc['tt'] == null || doc['tt'] == false) {
-          setState(() {
-            tt = false;
-          });
-        } else if (doc['tt'] == true) {
-          setState(() {
-            tt = true;
-          });
-        }
-      });
+      await getTTInfo();
     });
+  }
+
+  Future<Null> getTTInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getString('tt') == null) {
+      setState(() {
+        tt = "false";
+      });
+    } else {
+      setState(() {
+        tt = prefs.getString('tt');
+      });
+    }
   }
 
   @override
@@ -161,7 +162,7 @@ class _HomeState extends State<Home> {
                   else {
                     Navigator.pushNamed(context, '/timetableInput');
                     setState(() {
-                      tt = true;
+                      tt = "false";
                     });
                   }
                 } else {
@@ -195,7 +196,8 @@ class _HomeState extends State<Home> {
             child: InkWell(
               borderRadius: BorderRadius.circular(30),
               onTap: () async {
-                if (tt != false) {
+                await getTTInfo();
+                if (tt != "false") {
                   if (_batch == "Batch 1") {
                     Navigator.pushNamed(context, '/timetableOne');
                   } else {

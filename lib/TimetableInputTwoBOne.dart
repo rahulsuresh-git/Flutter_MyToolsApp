@@ -41,7 +41,8 @@ class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
     prefs.setString(dropdownPrac3, '');
     prefs.setString(dropdownPrac4, '');
     prefs.setString(dropdownPrac5, '');
-  
+      prefs.setString('tt','true');
+
     prefs.setString(dropdownPrac1, _labOne.text);
     prefs.setString(dropdownPrac2, _labTwo.text);
     prefs.setString(dropdownPrac3, _labThree.text);
@@ -61,7 +62,7 @@ class _TimetableInputTwoBOneState extends State<TimetableInputTwoBOne> {
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           backgroundColor: Colors.indigo,
-          title: Text("Step Two b1 "),
+          title: Text("Step Two "),
         ),
         body: Form(
           child: Container(
