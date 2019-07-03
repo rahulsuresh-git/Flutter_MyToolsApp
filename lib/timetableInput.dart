@@ -9,7 +9,7 @@ class TimetableInput extends StatefulWidget {
   @override
   _TimetableInputState createState() => _TimetableInputState();
 }
-
+ 
 class _TimetableInputState extends State<TimetableInput> {
   bool _validate = true;
   final Firestore _db = Firestore.instance;

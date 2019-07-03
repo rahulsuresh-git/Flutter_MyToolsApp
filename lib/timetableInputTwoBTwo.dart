@@ -8,7 +8,7 @@ class TimetableInputTwoBTwo extends StatefulWidget {
   @override
   _TimetableInputTwoBTwoState createState() => _TimetableInputTwoBTwoState();
 }
-
+ 
 class _TimetableInputTwoBTwoState extends State<TimetableInputTwoBTwo> {
   final _labOne = TextEditingController();
   final _labTwo = TextEditingController();
