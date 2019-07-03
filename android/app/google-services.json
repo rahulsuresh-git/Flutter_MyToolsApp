@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "216402604861-5mrg1r6gpsd75je2guiuvq857rdf19qt.apps.googleusercontent.com",
+          "client_id": "216402604861-k60s2bon8b0er7emq6aq5t18h95pfhaj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.rahul.stb",
-            "certificate_hash": "be137a362490391620045a0a8f20acaa2b1c4262"
+            "certificate_hash": "6c7b7e6beada520558bc6e7c44cb54553e42eea3"
           }
         },
         {
@@ -41,7 +41,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-8068139846844354~2057510565"
     }
   ],
   "configuration_version": "1"
