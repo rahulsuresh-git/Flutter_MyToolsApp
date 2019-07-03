@@ -187,9 +187,9 @@ class _TimetableOneState extends State<TimetableOne> {
      FirebaseAdMob.instance
         .initialize(appId: "ca-app-pub-8068139846844354~2057510565")
         .then((onValue) {
-      // myBanner
-      //   ..load()
-      //   ..show();
+      myBanner
+        ..load()
+        ..show();
     });
     return Scaffold(
       resizeToAvoidBottomPadding: false,
