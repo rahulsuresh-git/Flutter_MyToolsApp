@@ -16,26 +16,19 @@ class _TimetableOneState extends State<TimetableOne> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       A = prefs.getString('A');
-
       B = prefs.getString('B');
-
       C = prefs.getString('C');
-
       D = prefs.getString('D');
-
       E = prefs.getString('E');
-
       F = prefs.getString('F');
-
       G = prefs.getString('G');
     });
   }
 
   @override
-  void initState()  {
+  void initState() {
     super.initState();
-       getSharedPrefs();  
-
+    getSharedPrefs();
   }
 
   @override

@@ -30,59 +30,7 @@ class _TimetableInputTwoBTwoState extends State<TimetableInputTwoBTwo> {
   setState(() {
         _batch = prefs.getString('batch');
       });
-    // if (dropdownPrac1 != null)
-    //   setState(() {
-    //     dropdownPrac1 = prefs.getString('dropdownPrac1');
-    //   });
-    // else {
-    //   setState(() {
-    //     dropdownPrac1 = "Select";
-    //   });
-    // }
-
-    // if (dropdownPrac2 != null)
-    //   setState(() {
-    //     dropdownPrac2 = prefs.getString('dropdownPrac2');
-    //   });
-    // else {
-    //   setState(() {
-    //     dropdownPrac2 = "Select";
-    //   });
-    // }
-    // if (dropdownPrac3 != null)
-    //   setState(() {
-    //     dropdownPrac3 = prefs.getString('dropdownPrac3');
-    //   });
-    // else {
-    //   setState(() {
-    //     dropdownPrac3 = "Select";
-    //   });
-    // }
-    // if (dropdownPrac4 != null)
-    //   setState(() {
-    //     dropdownPrac4 = prefs.getString('dropdownPrac4');
-    //   });
-    // else {
-    //   setState(() {
-    //     dropdownPrac4= "Select";
-    //   });
-    // }
-    // if (dropdownPrac5 != null)
-    //   setState(() {
-    //     dropdownPrac5 = prefs.getString('dropdownPrac5');
-    //   });
-    // else {
-    //   setState(() {
-    //     dropdownPrac5 = "Select";
-    //   });
-    // }
-    // setState(() {
-    //   _labOne.text = prefs.getString('_labOne');
-    //   _labTwo.text = prefs.getString('_labTwo');
-    //   _labThree.text = prefs.getString('_labThree');
-    //   _labFour.text = prefs.getString('_labFour');
-    //   _labFive.text = prefs.getString('_labFive');
-    // });
+    
   }
 
   asyncFunc() async {
@@ -93,16 +41,7 @@ class _TimetableInputTwoBTwoState extends State<TimetableInputTwoBTwo> {
     prefs.setString(dropdownPrac3, '');
     prefs.setString(dropdownPrac4, '');
     prefs.setString(dropdownPrac5, '');
-    // prefs.setString('dropdownPrac1', dropdownPrac1);
-    // prefs.setString('dropdownPrac2', dropdownPrac2);
-    // prefs.setString('dropdownPrac3', dropdownPrac3);
-    // prefs.setString('dropdownPrac4', dropdownPrac4);
-    // prefs.setString('dropdownPrac5', dropdownPrac5);
-    // prefs.setString('_labOne', _labOne.text);
-    // prefs.setString('_labTwo', _labTwo.text);
-    // prefs.setString('_labThree', _labThree.text);
-    // prefs.setString('_labFour', _labFour.text);
-    // prefs.setString('_labFive', _labFive.text);
+   
      prefs.setString(dropdownPrac1, _labOne.text);
     prefs.setString(dropdownPrac2, _labTwo.text);
     prefs.setString(dropdownPrac3, _labThree.text);

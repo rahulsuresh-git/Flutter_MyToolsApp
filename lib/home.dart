@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
   String _userName = "";
   String uid;
   bool net = false;
-  bool tt = false;
+  bool tt = true;
   String _photoUrl = "";
   bool _profile = false;
   var refreshKey = GlobalKey<RefreshIndicatorState>();

@@ -119,8 +119,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         ),
                       ),
                       onTap: () => launch('https://textuploader.com/1dw1q'),
-                        
-                         
                     )
                   ],
                 ),
