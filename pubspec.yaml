@@ -11,7 +11,7 @@ description: An easy way to manage the daily life at SRMIST!
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 5.0.1+51
+version: 5.0.4+54
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -25,12 +25,11 @@ dependencies:
   flutter_just_toast: ^1.0.1
   firebase_auth: ^0.6.2+1
   google_sign_in: ^3.2.1
-  rxdart: 0.20.0
-  fancy_bottom_navigation: ^0.3.2
   flutter_auth_buttons:
   shared_preferences: any
   url_launcher:
-  firebase_admob: 
+  firebase_admob: 0.6.1
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

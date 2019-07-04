@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "216402604861",
-    "firebase_url": "https://mytools-d6b64.firebaseio.com",
-    "project_id": "mytools-d6b64",
-    "storage_bucket": "mytools-d6b64.appspot.com"
+    "project_number": "65394167552",
+    "firebase_url": "https://mytools-9d29d.firebaseio.com",
+    "project_id": "mytools-9d29d",
+    "storage_bucket": "mytools-9d29d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:216402604861:android:bfeeaecbac3d9309",
+        "mobilesdk_app_id": "1:65394167552:android:bfeeaecbac3d9309",
         "android_client_info": {
           "package_name": "com.rahul.stb"
         }
       },
       "oauth_client": [
         {
-          "client_id": "216402604861-k60s2bon8b0er7emq6aq5t18h95pfhaj.apps.googleusercontent.com",
+          "client_id": "65394167552-opncc1hgthvf8idpvmfi6akqlosk3jrk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.rahul.stb",
@@ -23,20 +23,28 @@
           }
         },
         {
-          "client_id": "216402604861-2ri3bfh3r8rrovma3mutaa05dfrdqb2i.apps.googleusercontent.com",
+          "client_id": "65394167552-l37lglpb7b4fhjr9mq6pain96b0758te.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rahul.stb",
+            "certificate_hash": "3a66086900f1def5d2e295cde50c49401a464953"
+          }
+        },
+        {
+          "client_id": "65394167552-8s2gkinse7tjk5sdfpthquoppor3ahkj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBqXxo_x0ug3Z5n8u-9ym7L7rh--Eqxzl0"
+          "current_key": "AIzaSyC2Rw8Zvd7abMycLVG5sdNOOddOJWZtu3A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "216402604861-2ri3bfh3r8rrovma3mutaa05dfrdqb2i.apps.googleusercontent.com",
+              "client_id": "65394167552-8s2gkinse7tjk5sdfpthquoppor3ahkj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
