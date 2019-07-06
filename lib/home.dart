@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: 40),
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             Text("Hey ",
@@ -174,7 +174,7 @@ class _HomeState extends State<Home> {
                 }
               },
               child: Container(
-                height: 90,
+                height: 70,
                 width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: Text(
@@ -185,9 +185,7 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 5),
-          ),
+       
           Card(
             color: Colors.amber,
             shape: RoundedRectangleBorder(
@@ -211,7 +209,7 @@ class _HomeState extends State<Home> {
                 }
               },
               child: Container(
-                height: 90,
+                height: 70,
                 width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: Text(
@@ -222,9 +220,7 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 5),
-          ),
+         
           Card(
             color: Colors.red[300],
             shape: RoundedRectangleBorder(
@@ -250,7 +246,7 @@ class _HomeState extends State<Home> {
                     }
                   },
                   child: Container(
-                    height: 90,
+                    height: 70,
                     width: MediaQuery.of(context).size.width,
                     child: Center(
                       child: Text(

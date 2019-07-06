@@ -181,13 +181,7 @@ if(prefs.getString(L)!=null)
 
   @override
   Widget build(BuildContext context) {
-     FirebaseAdMob.instance
-        .initialize(appId: "ca-app-pub-8068139846844354~2057510565")
-        .then((onValue) {
-      myBanner
-        ..load()
-        ..show();
-    });
+   
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
@@ -349,28 +343,3 @@ if(prefs.getString(L)!=null)
     );
   }
 }
-
-MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-  keywords: <String>['games', 'beautiful apps'],
-  contentUrl: 'https://flutter.io',
-  birthday: DateTime.now(),
-  childDirected: false,
-  designedForFamilies: false,
-  
-  gender:
-      MobileAdGender.male, // or MobileAdGender.female, MobileAdGender.unknown
-  testDevices: ["F80F5F49B900622047C7F39485FA5449"], // Android emulators are considered test devices
-);
-
-BannerAd myBanner = BannerAd(
-  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-  // https://developers.google.com/admob/android/test-ads
-  // https://developers.google.com/admob/ios/test-ads
-  adUnitId: "ca-app-pub-8068139846844354/9655184581",
-  size: AdSize.smartBanner,
-  targetingInfo: targetingInfo,
-  
-  listener: (MobileAdEvent event) {
-    print("BannerAd event is $event");
-  },
-);
